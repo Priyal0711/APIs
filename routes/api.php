@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CompleteTaskController;
 use App\Http\Controllers\Api\V1\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,12 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::prefix('v1')->name('app.v1.')->namespace('Api/V1')->group(function () {
-//     Route::get('/status', function() {
-//         return response()->json(['status' =>'Success']);
-//     })->name('status');
-//     Route::get('user/show', [Datacontroller::class , 'show']);
-// });
 
 Route::get('/hello', function () {
     return ['message' => 'Hello, API!'];
@@ -32,4 +27,5 @@ Route::get('/hello', function () {
 
 Route::prefix('v1')->group(function (){
     Route::apiResource('/tasks',TaskController::class);
+    Route::patch('/tasks/{task}/complete',CompleteTaskController::class);
 });
